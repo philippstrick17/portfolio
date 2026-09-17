@@ -20,12 +20,15 @@ export async function apiAvailable() {
 }
 
 export async function fetchProjects() {
-  if (await apiAvailable()) {
-    return request("/api/projects");
+  try {
+    const res = await fetch(`${API_BASE}/api/projects`);
+    if (res.ok) return await res.json();
+    throw new Error("API nicht verfügbar");
+  } catch {
+    const res = await fetch(`${import.meta.env.BASE_URL}projects.json`);
+    if (!res.ok) throw new Error("Projekte konnten nicht geladen werden");
+    return res.json();
   }
-  const res = await fetch(`${import.meta.env.BASE_URL}projects.json`);
-  if (!res.ok) throw new Error("Projekte konnten nicht geladen werden");
-  return res.json();
 }
 
 export const createProject = (p) =>
