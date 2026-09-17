@@ -62,8 +62,8 @@ function Landing() {
       <header className="hero">
         <h1>Philipp Strick</h1>
         <p className="tagline">
-          Ich baue kleine, eigene Lösungen für den Alltag – von Apps über Websites bis zu
-          Automatisierungen auf dem Raspberry Pi.
+          Ich bin Foto- und Videograf. Ob Porträts, Events oder Filme – ich halte
+          Momente fest und erzähle Geschichten.
         </p>
       </header>
 
@@ -72,10 +72,10 @@ function Landing() {
           <h2>Über mich</h2>
           <div className="card">
             <p>
-              Hallo, ich bin Philipp. Ich entwickle nebenbei eigene Projekte, die mir und
-              anderen den Alltag erleichtern. Meine Tools: Python/Flask für Backends und
-              Automatisierung, React für moderne Web-Oberflächen und ein Raspberry Pi als
-              Dauerläufer im Heimnetz.
+              Hallo, ich bin Philipp – Foto- und Videograf. Ich fotografiere und
+              filme Menschen und Momente: von Porträts über Events bis zu eigenen
+              Filmprojekten. Aus Bild, Licht und Ton entsteht die Geschichte, die
+              ich erzählen will.
             </p>
           </div>
         </section>
