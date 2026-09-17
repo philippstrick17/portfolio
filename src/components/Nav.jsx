@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { HERO } from "../content.js";
 
 const SECTION_IDS = ["about", "portfolio", "contact"];
 
-export default function Nav() {
+export default function Nav({ config }) {
+  const NAV = config.NAV;
+  const HERO = config.HERO;
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
 
@@ -39,28 +40,19 @@ export default function Nav() {
   return (
     <header className={`nav ${scrolled ? "is-scrolled" : ""}`}>
       <a className="nav-wordmark" href="#top" aria-label="Zur Startseite">
-        Philipp Salgert
+        {NAV.wordmark}
       </a>
       <nav className="nav-links" aria-label="Hauptnavigation">
-        <a
-          href="#about"
-          aria-current={active === "about" ? "true" : undefined}
-        >
-          Über mich
-        </a>
-        <a
-          href="#portfolio"
-          aria-current={active === "portfolio" ? "true" : undefined}
-        >
-          Arbeiten
-        </a>
-        <a
-          href="#contact"
-          aria-current={active === "contact" ? "true" : undefined}
-        >
-          Kontakt
-        </a>
-        <a className="nav-cta" href="#contact">
+        {NAV.labels.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            aria-current={active === link.href.slice(1) ? "true" : undefined}
+          >
+            {link.label}
+          </a>
+        ))}
+        <a className="nav-cta" href={HERO.ctaSecondary.href}>
           {HERO.ctaSecondary.label}
         </a>
       </nav>

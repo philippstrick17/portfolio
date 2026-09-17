@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { fetchProjects } from "../api.js";
-import { PLACEHOLDER_GRADIENTS, PORTFOLIO } from "../content.js";
+import { PLACEHOLDER_GRADIENTS } from "../content.js";
 import Reveal from "./Reveal.jsx";
 
 function gradientFor(id) {
   let hash = 0;
-  for (let i = 0; i < id.length; i++) hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
+  }
   return PLACEHOLDER_GRADIENTS[hash % PLACEHOLDER_GRADIENTS.length];
 }
 
@@ -13,9 +15,14 @@ function ProjectCard({ project, index }) {
   const firstLink = project.links?.[0]?.url;
   return (
     <article className="project">
-      <div
+      <a
         className="project-media"
-        style={project.image ? undefined : { background: gradientFor(project.id) }}
+        href={firstLink || "#portfolio"}
+        target={firstLink ? "_blank" : undefined}
+        rel={firstLink ? "noopener noreferrer" : undefined}
+        style={
+          project.image ? undefined : { background: gradientFor(project.id) }
+        }
       >
         {project.image ? (
           <img
@@ -30,13 +37,15 @@ function ProjectCard({ project, index }) {
             {project.title.charAt(0)}
           </span>
         )}
-        <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
+        <span className="project-index">
+          {String(index + 1).padStart(2, "0")}
+        </span>
         {firstLink && (
           <span className="project-caption" aria-hidden="true">
             <span>Ansehen →</span>
           </span>
         )}
-      </div>
+      </a>
       <div className="project-body">
         <h3 className="project-title">
           {firstLink ? (
@@ -47,7 +56,9 @@ function ProjectCard({ project, index }) {
             project.title
           )}
         </h3>
-        {project.subtitle && <p className="project-subtitle">{project.subtitle}</p>}
+        {project.subtitle && (
+          <p className="project-subtitle">{project.subtitle}</p>
+        )}
         {project.description && (
           <p className="project-description">{project.description}</p>
         )}
@@ -93,7 +104,8 @@ function Skeletons() {
   );
 }
 
-export default function Portfolio() {
+export default function Portfolio({ config }) {
+  const PORTFOLIO = config.PORTFOLIO;
   const [projects, setProjects] = useState(null);
   const [error, setError] = useState(null);
 
@@ -117,7 +129,9 @@ export default function Portfolio() {
         <Reveal className="section-head">
           <p className="kicker">{PORTFOLIO.eyebrow}</p>
           <h2 className="section-title">{PORTFOLIO.heading}</h2>
-          <p className="section-lead">{PORTFOLIO.intro}</p>
+          {PORTFOLIO.intro && (
+            <p className="section-lead">{PORTFOLIO.intro}</p>
+          )}
         </Reveal>
 
         {!projects && !error && <Skeletons />}
@@ -129,7 +143,7 @@ export default function Portfolio() {
             </button>
           </div>
         )}
-        {projects?.length === 0 && (
+        {projects && projects.length === 0 && (
           <Reveal>
             <p className="status-empty">{PORTFOLIO.empty}</p>
           </Reveal>

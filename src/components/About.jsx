@@ -1,7 +1,7 @@
-import { ABOUT } from "../content.js";
 import Reveal from "./Reveal.jsx";
 
-export default function About() {
+export default function About({ config }) {
+  const ABOUT = config.ABOUT;
   return (
     <section className="section" id="about">
       <div className="container about">
@@ -11,7 +11,7 @@ export default function About() {
             alt={ABOUT.imageAlt}
             loading="lazy"
             width="1200"
-            height="1500"
+            height="800"
           />
         </Reveal>
         <div className="about-copy">

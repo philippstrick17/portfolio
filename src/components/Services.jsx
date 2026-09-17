@@ -1,7 +1,9 @@
-import { CONTACT, SERVICES } from "../content.js";
 import Reveal from "./Reveal.jsx";
 
-export default function Services() {
+export default function Services({ config }) {
+  const CONTACT = config.CONTACT;
+  const SERVICES = config.SERVICES;
+  if (!SERVICES || !SERVICES.items) return null;
   return (
     <section className="section section-tint" id="services">
       <div className="container">

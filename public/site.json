@@ -1,0 +1,116 @@
+{
+  "NAV": {
+    "labels": [
+      {
+        "label": "Über mich",
+        "href": "#about"
+      },
+      {
+        "label": "Projekte",
+        "href": "#portfolio"
+      },
+      {
+        "label": "Kontakt",
+        "href": "#contact"
+      }
+    ]
+  },
+  "HERO": {
+    "eyebrow": "Fotografie · Videografie",
+    "title": "Momente, die bleiben.",
+    "subtitle": "Ich bin Philipp, Foto- und Videograf. Ich halte fest, was bleibt – Porträts, Events und Filme, auf die man sich verlassen kann.",
+    "ctaPrimary": {
+      "label": "Arbeiten ansehen",
+      "href": "#portfolio"
+    },
+    "ctaSecondary": {
+      "label": "Unverbindlich anfragen",
+      "href": "#contact"
+    },
+    "image": "https://images.unsplash.com/photo-1485470733090-0aae1788d5af?q=80&w=2048&auto=format&fit=crop",
+    "imageAlt": "Berglandschaft unter Sternenhimmel"
+  },
+  "MARQUEE": [
+    "Porträts",
+    "Events",
+    "Hochzeit",
+    "Corporate",
+    "Imagefilm",
+    "Interview"
+  ],
+  "ABOUT": {
+    "eyebrow": "Über mich",
+    "heading": "Keine Pose, kein Druck.",
+    "paragraphs": [
+      "Schon als Kind stand ich lieber hinter der Kamera als davor. Heute arbeite ich mit Menschen zusammen, die etwas zu zeigen haben – und dabei sie selbst bleiben wollen.",
+      "Ich begleite dich vor, während und nach dem Shooting: damit aus einem guten Bild ein ehrliches wird."
+    ],
+    "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1200&auto=format&fit=crop",
+    "imageAlt": "Porträt von Philipp mit Kamera",
+    "stats": [
+      {
+        "value": "7+",
+        "label": "Jahre Erfahrung"
+      },
+      {
+        "value": "150+",
+        "label": "Shootings im Jahr"
+      },
+      {
+        "value": "4.9★",
+        "label": "Bewertung"
+      }
+    ]
+  },
+  "SERVICES": {
+    "eyebrow": "Leistungen",
+    "heading": "Was ich für dich tue",
+    "items": [
+      {
+        "name": "Porträt",
+        "description": "Persönliche Shootings in Studio oder Natur.",
+        "points": [
+          "Konzept & Licht-Setup",
+          "Outfit- & Locationsberatung"
+        ]
+      },
+      {
+        "name": "Events",
+        "description": "Dokumentation deiner Feier – diskret und voller Gefühl.",
+        "points": [
+          "Hochzeiten",
+          "Geburtstage",
+          "Corporate Events"
+        ]
+      },
+      {
+        "name": "Film & Video",
+        "description": "Imagefilme und Interviews, die bleiben.",
+        "points": [
+          "Dreh & Schnitt",
+          "Social-Media-Clips"
+        ]
+      }
+    ]
+  },
+  "PORTFOLIO": {
+    "eyebrow": "Projekte",
+    "heading": "Ausgewählte Arbeiten",
+    "intro": "Eine kleine Auswahl – vom Porträt bis zum Imagefilm.",
+    "empty": "Noch keine Projekte veröffentlicht."
+  },
+  "CONTACT": {
+    "eyebrow": "Kontakt",
+    "heading": "Lass uns etwas schaffen.",
+    "text": "Erzähl mir von deinem Projekt – ich antworte schnell und unverbindlich.",
+    "cta": "Jetzt anfragen",
+    "mailto": "mailto:hallo@philipp-salgert.de",
+    "channels": [
+      {
+        "kind": "E-Mail",
+        "value": "hallo@philipp-salgert.de",
+        "href": "mailto:hallo@philipp-salgert.de"
+      }
+    ]
+  }
+}

@@ -31,6 +31,30 @@ export async function fetchProjects() {
   }
 }
 
+export async function fetchSiteConfig() {
+  try {
+    const res = await fetch(`${API_BASE}/api/site`);
+    if (res.ok) return await res.json();
+    throw new Error("API nicht verfügbar");
+  } catch {
+    const res = await fetch(`${import.meta.env.BASE_URL}site.json`);
+    if (!res.ok) throw new Error("Website-Konfiguration konnte nicht geladen werden");
+    return res.json();
+  }
+}
+
+export const saveSiteConfig = (site) =>
+  request("/api/site", { method: "PUT", body: JSON.stringify(site) });
+
+export async function uploadImage(file) {
+  const body = new FormData();
+  body.append("file", file);
+  const res = await fetch(`${API_BASE}/api/upload`, { method: "POST", body });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || res.statusText);
+  return data.url;
+}
+
 export const createProject = (p) =>
   request("/api/projects", { method: "POST", body: JSON.stringify(p) });
 

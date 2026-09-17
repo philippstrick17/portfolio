@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Admin from "./Admin.jsx";
 import About from "./components/About.jsx";
 import Contact from "./components/Contact.jsx";
@@ -8,7 +8,8 @@ import Marquee from "./components/Marquee.jsx";
 import Nav from "./components/Nav.jsx";
 import Portfolio from "./components/Portfolio.jsx";
 import Services from "./components/Services.jsx";
-import { MARQUEE } from "./content.js";
+import { fetchSiteConfig } from "./api.js";
+import * as content from "./content.js";
 
 function useRoute() {
   const [route, setRoute] = useState(window.location.hash);
@@ -20,27 +21,68 @@ function useRoute() {
   return route;
 }
 
-function Landing() {
+function isPlainObject(v) {
+  return v !== null && typeof v === "object" && !Array.isArray(v);
+}
+
+/** Tief zusammenführen: Objekte mergen, Arrays & Basiswerte überschreiben. */
+export function mergeConfig(base, over) {
+  if (!isPlainObject(base) || !isPlainObject(over)) {
+    return over === undefined ? base : over;
+  }
+  const out = { ...base };
+  for (const key of Object.keys(over)) {
+    out[key] = mergeConfig(base[key], over[key]);
+  }
+  return out;
+}
+
+/** Website-Konfiguration laden (API auf dem Pi, sonst site.json als Fallback). */
+function useSiteConfig() {
+  const [config, setConfig] = useState(nullapsed);
+  useEffect(() => {
+    let alive = true;
+    fetchSiteConfig()
+      .then((site) => {
+        if (!alive) return;
+        setConfig(
+          site && isPlainObject(site) ? mergeConfig(content, site) : content
+        );
+      })
+      .catch(() => {
+        if (alive) setConfig(content);
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
+  return config;
+}
+
+function Landing({ config }) {
   return (
     <>
       <a className="skip-link" href="#main">
         Zum Inhalt springen
       </a>
-      <Nav />
+      <Nav config={config} />
       <main id="main">
-        <Hero />
-        <Marquee items={MARQUEE} />
-        <About />
-        <Services />
-        <Portfolio />
-        <Contact />
+        <Hero config={config} />
+        <Marquee items={config.MARQUEE} />
+        <About config={config} />
+        <Services config={config} />
+        <Portfolio config={config} />
+        <Contact config={config} />
       </main>
-      <Footer />
+      <Footer config={config} />
     </>
   );
 }
 
 export default function App() {
   const route = useRoute();
-  return route.startsWith("#/admin") ? <Admin /> : <Landing />;
+  const config = useSiteConfig();
+  if (route.startsWith("#/admin")) return <Admin />;
+  if (!config) return null;
+  return <Landing config={config} />;
 }

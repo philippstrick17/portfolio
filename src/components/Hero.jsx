@@ -1,6 +1,5 @@
-import { HERO } from "../content.js";
-
-export default function Hero() {
+export default function Hero({ config }) {
+  const HERO = config.HERO;
   return (
     <section className="hero" id="top">
       <div className="hero-media">
@@ -15,9 +14,7 @@ export default function Hero() {
       <div className="hero-overlay" />
       <div className="container hero-content">
         <p className="kicker kicker-light">{HERO.eyebrow}</p>
-        <h1 className="hero-title">
-          {HERO.title}
-        </h1>
+        <h1 className="hero-title">{HERO.title}</h1>
         <p className="hero-subtitle">{HERO.subtitle}</p>
         <div className="hero-actions">
           <a className="btn btn-light" href={HERO.ctaPrimary.href}>

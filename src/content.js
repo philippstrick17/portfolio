@@ -1,8 +1,10 @@
-export const NAV = [
-  { href: "#about", label: "Über mich" },
-  { href: "#portfolio", label: "Arbeiten" },
-  { href: "#contact", label: "Kontakt" },
-];
+export const NAV = {
+  labels: [
+    { label: "Über mich", href: "#about" },
+    { label: "Arbeiten", href: "#portfolio" },
+    { label: "Kontakt", href: "#contact" },
+  ],
+};
 
 export const HERO = {
   eyebrow: "Fotografie · Videografie",
@@ -94,21 +96,9 @@ export const CONTACT = {
   cta: "Jetzt anfragen",
   mailto: "mailto:philipp@salgert.de",
   channels: [
-    {
-      kind: "E-Mail",
-      value: "philipp@salgert.de",
-      href: "mailto:philipp@salgert.de",
-    },
-    {
-      kind: "Instagram",
-      value: "@philippstrick",
-      href: "https://instagram.com/philippstrick",
-    },
-    {
-      kind: "YouTube",
-      value: "Philipp Salgert",
-      href: "https://youtube.com/@philippstrick",
-    },
+    { kind: "E-Mail", value: "philipp@salgert.de", href: "mailto:philipp@salgert.de" },
+    { kind: "Instagram", value: "@philippstrick", href: "https://instagram.com/philippstrick" },
+    { kind: "YouTube", value: "Philipp Salgert", href: "https://youtube.com/@philippstrick" },
   ],
 };
 
@@ -118,3 +108,6 @@ export const PLACEHOLDER_GRADIENTS = [
   "linear-gradient(135deg, #2f2a24 0%, #141210 100%)",
   "linear-gradient(135deg, #452b22 0%, #160d09 100%)",
 ];
+
+const content = { NAV, HERO, MARQUEE, ABOUT, SERVICES, PORTFOLIO, CONTACT };
+export default content;

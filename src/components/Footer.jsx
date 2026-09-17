@@ -1,6 +1,6 @@
-import { CONTACT, NAV } from "../content.js";
-
-export default function Footer() {
+export default function Footer({ config }) {
+  const NAV = config.NAV;
+  const CONTACT = config.CONTACT;
   const year = new Date().getFullYear();
   return (
     <footer className="footer">
@@ -14,9 +14,9 @@ export default function Footer() {
           </a>
         </div>
         <div className="footer-inner">
-          <p className="footer-wordmark">Philipp Salgert</p>
+          <p className="footer-wordmark">{NAV.wordmark}</p>
           <nav className="footer-links" aria-label="Footer">
-            {NAV.map((link) => (
+            {NAV.labels.map((link) => (
               <a key={link.href} href={link.href}>
                 {link.label}
               </a>
@@ -31,7 +31,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {year} Philipp Salgert · Fotograf & Videograf</span>
+          <span>© {year} {NAV.wordmark}</span>
           <span>Fotografie · Videografie · Postproduktion</span>
         </div>
       </div>
