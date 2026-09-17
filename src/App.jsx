@@ -1,70 +1,61 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { fetchProjects } from "./api.js";
+import Admin from "./Admin.jsx";
 
-const projects = [
-  {
-    title: "Mein Untis",
-    subtitle: "Persönlicher Stundenplan",
-    description:
-      "Eigener Stundenplan auf Basis von WebUntis ohne offizielle App – eine Raspberry-Pi/Flask-Version im Heimnetz und eine native Capacitor-App für Android/iOS mit eigenem Cloudflare-Worker-Proxy.",
-    tags: ["Flask", "Python", "WebUntis", "React-lite", "Capacitor", "Cloudflare Workers"],
-    links: [
-      { label: "Web-App", url: "https://philippstrick17.github.io/mein-untis-app/" },
-      { label: "Repo", url: "https://github.com/philippstrick17/mein-untis-app" },
-    ],
-  },
-  {
-    title: "FokusApp",
-    subtitle: "Fokus für den Alltag",
-    description:
-      "App, die Menschen mit ADHS hilft, konzentriert zu bleiben – mit klaren Strukturen, Zeiträumen und Fokus-Unterstützung.",
-    tags: ["App", "ADHS", "Fokus", "Produktivität"],
-    links: [{ label: "Repo", url: "https://github.com/philippstrick17/FokusApp-V2" }],
-  },
-  {
-    title: "inFokus Website",
-    subtitle: "Webauftritt",
-    description:
-      "Die Website für das inFokus-Projekt – in zwei Generationen entwickelt und auf GitHub Pages gehostet.",
-    tags: ["Web", "GitHub Pages", "Design"],
-    links: [
-      { label: "Website", url: "https://philippstrick17.github.io/infokuspage/" },
-      { label: "Repo", url: "https://github.com/philippstrick17/infokuspage" },
-    ],
-  },
-  {
-    title: "Dieses Portfolio",
-    subtitle: "Website über mich",
-    description:
-      "Diese Seite selbst: entwickelt mit React und Vite, läuft lokal auf dem Raspberry Pi und wird per GitHub Actions auf GitHub Pages veröffentlicht.",
-    tags: ["React", "Vite", "GitHub Actions", "Raspberry Pi"],
-    links: [{ label: "Repo", url: "https://github.com/philippstrick17/portfolio" }],
-  },
-];
+function useRoute() {
+  const [route, setRoute] = useState(window.location.hash);
+  useEffect(() => {
+    const onChange = () => setRoute(window.location.hash);
+    window.addEventListener("hashchange", onChange);
+    return () => window.removeEventListener("hashchange", onChange);
+  }, []);
+  return route;
+}
 
 function ProjectCard({ project }) {
   return (
     <article className="card">
+      {project.image && (
+        <div className="card-img">
+          <img src={project.image} alt="" loading="lazy" />
+        </div>
+      )}
       <h3>{project.title}</h3>
-      <p className="subtitle">{project.subtitle}</p>
-      <p>{project.description}</p>
-      <div className="tags">
-        {project.tags.map((tag) => (
-          <span key={tag} className="tag">{tag}</span>
-        ))}
-      </div>
-      <div className="links">
-        {project.links.map((link) => (
-          <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
-            {link.label} ↗
-          </a>
-        ))}
-      </div>
+      {project.subtitle && <p className="subtitle">{project.subtitle}</p>}
+      <p className="description">{project.description}</p>
+      {project.tags && project.tags.length > 0 && (
+        <div className="tags">
+          {project.tags.map((tag) => (
+            <span key={tag} className="tag">{tag}</span>
+          ))}
+        </div>
+      )}
+      {project.links && project.links.length > 0 && (
+        <div className="links">
+          {project.links.map((link) => (
+            <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">
+              {link.label || link.url} ↗
+            </a>
+          ))}
+        </div>
+      )}
     </article>
   );
 }
 
-export default function App() {
-  const year = useMemo(() => new Date().getFullYear(), []);
+function Landing() {
+  const [projects, setProjects] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    let alive = true;
+    fetchProjects()
+      .then((data) => alive && setProjects(data))
+      .catch((err) => alive && setError(err.message));
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   return (
     <div className="page">
@@ -91,17 +82,33 @@ export default function App() {
 
         <section>
           <h2>Projekte</h2>
-          <div className="grid">
-            {projects.map((project) => (
-              <ProjectCard key={project.title} project={project} />
-            ))}
-          </div>
+          {error && <div className="card error">Fehler: {error}</div>}
+          {!projects && !error && <div className="card">Lade Projekte…</div>}
+          {projects && projects.length === 0 && (
+            <div className="card">Noch keine Projekte veröffentlicht.</div>
+          )}
+          {projects && projects.length > 0 && (
+            <div className="grid">
+              {projects.map((project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
+            </div>
+          )}
         </section>
       </main>
 
       <footer>
-        <p>© {year} Philipp Strick · Portfolio · <a href="https://github.com/philippstrick17">GitHub</a></p>
+        <p>
+          © {new Date().getFullYear()} Philipp Strick · Portfolio ·{" "}
+          <a href="https://github.com/philippstrick17">GitHub</a> ·{" "}
+          <a href="#/admin">Admin</a>
+        </p>
       </footer>
     </div>
   );
+}
+
+export default function App() {
+  const route = useRoute();
+  return route.startsWith("#/admin") ? <Admin /> : <Landing />;
 }

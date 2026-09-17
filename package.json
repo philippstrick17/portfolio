@@ -7,7 +7,7 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview --host",
-    "start": "vite preview --host --port 8002"
+    "start": "npm run build && .venv/bin/python app.py"
   },
   "dependencies": {
     "react": "^18.3.1",
