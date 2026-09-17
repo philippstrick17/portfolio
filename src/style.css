@@ -1048,13 +1048,20 @@ h4 {
   padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 5vw, 2.5rem);
 }
 
-.admin-hero {
+.admin-header {
   margin-bottom: 2rem;
+  padding-block: 1rem 2rem;
+  border-bottom: 1px solid var(--line);
 }
 
-.admin-hero h1 {
+.admin-header h1 {
   font-size: clamp(2rem, 4.5vw, 3rem);
   font-variation-settings: "SOFT" 40, "opsz" 144;
+  margin: 0;
+}
+
+.admin-header p {
+  margin-bottom: 0;
 }
 
 .tagline {

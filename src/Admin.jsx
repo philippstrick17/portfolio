@@ -214,7 +214,7 @@ export default function Admin() {
   if (!apiOk) {
     return (
       <div className="page">
-        <header className="hero">
+        <header className="admin-header">
           <h1>Admin</h1>
         </header>
         <div className="card">
@@ -231,7 +231,7 @@ export default function Admin() {
 
   return (
     <div className="page">
-      <header className="hero admin-hero">
+      <header className="admin-header">
         <h1>Adminpanel</h1>
         <p>
           <a href="#/">← Zurück zur Startseite</a>

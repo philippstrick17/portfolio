@@ -94,7 +94,13 @@ def delete_project(project_id):
 
 @app.post("/api/deploy")
 def deploy():
-    push_output = ""
+    status = subprocess.run(
+        ["git", "-C", BASE_DIR, "status", "--porcelain", "public/projects.json"],
+        capture_output=True,
+        text=True,
+    )
+    if not status.stdout.strip():
+        return jsonify({"ok": True, "output": "Keine Änderungen zu veröffentlichen."})
     try:
         subprocess.run(
             ["git", "-C", BASE_DIR, "add", "public/projects.json"],
@@ -112,8 +118,8 @@ def deploy():
             capture_output=True,
             text=True,
         )
-        push_output = (commit.stderr or "").strip() + "\n" + (push.stdout or "").strip()
-        return jsonify({"ok": True, "output": push_output.strip()})
+        output = ((commit.stderr or "").strip() + "\n" + (push.stdout or "").strip()).strip()
+        return jsonify({"ok": True, "output": output or "Veröffentlicht."})
     except subprocess.CalledProcessError as e:
         detail = e.stderr.decode() if isinstance(e.stderr, bytes) else str(e.stderr or e)
         return jsonify({"ok": False, "error": detail.strip()}), 500
