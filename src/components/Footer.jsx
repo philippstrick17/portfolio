@@ -14,7 +14,7 @@ export default function Footer() {
           </a>
         </div>
         <div className="footer-inner">
-          <p className="footer-wordmark">Philipp Strick</p>
+          <p className="footer-wordmark">Philipp Salgert</p>
           <nav className="footer-links" aria-label="Footer">
             {NAV.map((link) => (
               <a key={link.href} href={link.href}>
@@ -31,7 +31,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {year} Philipp Strick · Fotograf & Videograf</span>
+          <span>© {year} Philipp Salgert · Fotograf & Videograf</span>
           <span>Fotografie · Videografie · Postproduktion</span>
         </div>
       </div>

@@ -39,7 +39,7 @@ export default function Nav() {
   return (
     <header className={`nav ${scrolled ? "is-scrolled" : ""}`}>
       <a className="nav-wordmark" href="#top" aria-label="Zur Startseite">
-        Philipp Strick
+        Philipp Salgert
       </a>
       <nav className="nav-links" aria-label="Hauptnavigation">
         <a

@@ -92,12 +92,12 @@ export const CONTACT = {
   heading: "Lass uns etwas schaffen.",
   text: "Erzähl mir, was du vorhast – ich antworte schnell, ehrlich und ganz ohne Verpflichtung.",
   cta: "Jetzt anfragen",
-  mailto: "mailto:hallo@philipp-strick.de",
+  mailto: "mailto:philipp@salgert.de",
   channels: [
     {
       kind: "E-Mail",
-      value: "hallo@philipp-strick.de",
-      href: "mailto:hallo@philipp-strick.de",
+      value: "philipp@salgert.de",
+      href: "mailto:philipp@salgert.de",
     },
     {
       kind: "Instagram",
@@ -106,7 +106,7 @@ export const CONTACT = {
     },
     {
       kind: "YouTube",
-      value: "Philipp Strick",
+      value: "Philipp Salgert",
       href: "https://youtube.com/@philippstrick",
     },
   ],
